@@ -1,0 +1,8 @@
+{
+  "auto_qnh": false,
+  "html_report": true,
+  "landing_popup": true,
+  "log_messages": true,
+  "qnh_messages": true,
+  "write_logs": true
+}
