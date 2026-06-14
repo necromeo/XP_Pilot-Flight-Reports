@@ -1,40 +1,317 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Flight Log</title>
-<style>
-body{background:#1a1a2e;color:#e0e0e0;font-family:sans-serif;margin:0;padding:16px}
-h1{color:#00d4ff}h2{color:#aaa;font-size:1em;font-weight:normal;margin-top:0}
-.stats{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:20px}
-.stat{background:#16213e;border-radius:8px;padding:10px 16px;min-width:120px}
-.stat .val{font-size:1.6em;color:#00d4ff}.stat .lbl{font-size:.8em;color:#888}
-#map{height:420px;border-radius:8px;margin-bottom:20px}
-canvas{background:#16213e;border-radius:8px;margin-bottom:20px;width:100%!important}
-.lcard{background:#16213e;border-radius:8px;padding:14px 18px;margin-bottom:12px;display:inline-block;min-width:300px}
-.lcard .rat{font-size:1.4em;font-weight:bold;margin-bottom:8px}
-.lcard table{border-collapse:collapse}.lcard td{padding:2px 10px 2px 0}
-a{color:#00d4ff}table{width:100%;border-collapse:collapse}
-thead tr{color:#888;border-bottom:1px solid #333}
-.badge-heli{background:#3a5;color:#fff;padding:2px 8px;border-radius:4px;font-size:.8em;margin-left:6px;vertical-align:middle}
-</style></head><body><h1>Flight Log</h1><p style="color:#888">24 flights</p><table><thead><tr><th align="left">Date</th><th align="left">Route</th><th align="left">Aircraft</th><th align="left">Duration</th><th align="left">Max Alt</th><th align="left">Landing</th><th></th></tr></thead><tbody><tr><td>2026-06-01 20:44 UTC</td><td><b>SCIE &rarr; SCTE</b></td><td>A20N C-GTLT</td><td>55m</td><td>33064 ft</td><td style="color:#ffff00">BUTTER!</td><td><a href="reports/2026-06-01_SCIE_SCTE_A20N.html">Report</a></td></tr>
-<tr><td>2026-05-25 13:38 UTC</td><td><b>SAZY &rarr; SAZN</b></td><td>PA38 EC-38T</td><td>12m</td><td>4710 ft</td><td style="color:#ffff00">BUTTER!</td><td><a href="reports/2026-05-25_SAZY_SAZN_PA38.html">Report</a></td></tr>
-<tr><td>2026-05-25 14:08 UTC</td><td><b>SAZN &rarr; SAZY</b></td><td>E19L LIN200</td><td>39m</td><td>26468 ft</td><td style="color:#ffff00">BUTTER!</td><td><a href="reports/2026-05-25_SAZN_SAZY_E19L.html">Report</a></td></tr>
-<tr><td>2026-05-23 16:11 UTC</td><td><b>SCIE &rarr; SCEL</b></td><td>A20N C-GTLT</td><td>1h 00m</td><td>32851 ft</td><td style="color:#40ff40">GREAT LANDING!</td><td><a href="reports/2026-05-23_SCIE_SCEL_A20N.html">Report</a></td></tr>
-<tr><td>2026-05-22 22:05 UTC</td><td><b>SAZY &rarr; SCIE</b></td><td>E170 E170</td><td>57m</td><td>33382 ft</td><td style="color:#ffff00">BUTTER!</td><td><a href="reports/2026-05-22_SAZY_SCIE_E170.html">Report</a></td></tr>
-<tr><td>2026-05-17 20:23 UTC</td><td><b>LDSB &rarr; LDSB</b></td><td>UNKN OD136P</td><td>43m</td><td>3325 ft</td><td style="color:#ffff00">BUTTER!</td><td><a href="reports/2026-05-17_LDSB_LDSB_UNKN.html">Report</a></td></tr>
-<tr><td>2026-05-14 20:20 UTC</td><td><b>SCFR &rarr; SCPQ</b></td><td>DR40 F-SLCD</td><td>1h 25m</td><td>12126 ft</td><td style="color:#ffff00">BUTTER!</td><td><a href="reports/2026-05-14_SCFR_SCPQ_DR40.html">Report</a></td></tr>
-<tr><td>2026-05-13 19:53 UTC</td><td><b>SCTC &rarr; SAZY</b></td><td>DR40 F-SLCD</td><td>1h 26m</td><td>12488 ft</td><td style="color:#ffff00">BUTTER!</td><td><a href="reports/2026-05-13_SCTC_SAZY_DR40.html">Report</a></td></tr>
-<tr><td>2026-05-12 22:13 UTC</td><td><b>SCCH &rarr; SCTC</b></td><td>DR40 F-SLCD</td><td>1h 43m</td><td>10092 ft</td><td style="color:#ffff00">BUTTER!</td><td><a href="reports/2026-05-12_SCCH_SCTC_DR40.html">Report</a></td></tr>
-<tr><td>2026-05-11 21:20 UTC</td><td><b>SCCT &rarr; SCCH</b></td><td>DR40 F-SLCD</td><td>1h 18m</td><td>10222 ft</td><td style="color:#ffff00">BUTTER!</td><td><a href="reports/2026-05-11_SCCT_SCCH_DR40.html">Report</a></td></tr>
-<tr><td>2026-05-10 21:54 UTC</td><td><b>SCLC &rarr; SCCT</b></td><td>DR40 F-SLCD</td><td>1h 30m</td><td>10263 ft</td><td style="color:#40ff40">GREAT LANDING!</td><td><a href="reports/2026-05-10_SCLC_SCCT_DR40.html">Report</a></td></tr>
-<tr><td>2026-05-08 15:26 UTC</td><td><b>LOWI &rarr; EDDK</b></td><td>A20N C-GTLT</td><td>1h 20m</td><td>38342 ft</td><td style="color:#40ff40">GREAT LANDING!</td><td><a href="reports/2026-05-08_LOWI_EDDK_A20N.html">Report</a></td></tr>
-<tr><td>2026-05-05 20:44 UTC</td><td><b>SAZY &rarr; SCQP</b></td><td>SF50 N251CV</td><td>1h 09m</td><td>27720 ft</td><td style="color:#ffff00">BUTTER!</td><td><a href="reports/2026-05-05_SAZY_SCQP_SF50.html">Report</a></td></tr>
-<tr><td>2026-05-03 19:45 UTC</td><td><b>SAZS &rarr; SCTE</b></td><td>A20N C-GTLT</td><td>31m</td><td>19927 ft</td><td style="color:#40ff40">GREAT LANDING!</td><td><a href="reports/2026-05-03_SAZS_SCTE_A20N.html">Report</a></td></tr>
-<tr><td>2026-05-02 14:42 UTC</td><td><b>SBSJ &rarr; SBSP</b></td><td>E190 E190</td><td>24m</td><td>12737 ft</td><td style="color:#ffff00">BUTTER!</td><td><a href="reports/2026-05-02_SBSJ_SBSP_E190.html">Report</a></td></tr>
-<tr><td>2026-05-01 20:41 UTC</td><td><b>SBSP &rarr; SBSP</b></td><td>E190 E190</td><td>19m</td><td>5069 ft</td><td style="color:#40ff40">GREAT LANDING!</td><td><a href="reports/2026-05-01_SBSP_SBSP_E190_1777668117.html">Report</a></td></tr>
-<tr><td>2026-05-01 15:49 UTC</td><td><b>SBSP &rarr; SBSP</b></td><td>E190 E190</td><td>21m</td><td>4979 ft</td><td style="color:#40ff40">GREAT LANDING!</td><td><a href="reports/2026-05-01_SBSP_SBSP_E190.html">Report</a></td></tr>
-<tr><td>2026-05-01 13:55 UTC</td><td><b>SBSJ &rarr; SBSP</b></td><td>E19L LIN200</td><td>22m</td><td>12668 ft</td><td style="color:#00cc00">ACCEPTABLE</td><td><a href="reports/2026-05-01_SBSJ_SBSP_E19L.html">Report</a></td></tr>
-<tr><td>2026-04-29 20:31 UTC</td><td><b>SAZY &rarr; SAME</b></td><td>E19L LIN200</td><td>1h 11m</td><td>37748 ft</td><td style="color:#40ff40">GREAT LANDING!</td><td><a href="reports/2026-04-29_SAZY_SAME_E19L.html">Report</a></td></tr>
-<tr><td>2026-04-28 22:26 UTC</td><td><b>SCEL &rarr; SAME</b></td><td>E190 E190</td><td>36m</td><td>25197 ft</td><td style="color:#ffff00">BUTTER!</td><td><a href="reports/2026-04-28_SCEL_SAME_E190_1777415200.html">Report</a></td></tr>
-<tr><td>2026-04-28 20:42 UTC</td><td><b>SCEL &rarr; SAME</b></td><td>E190 E190</td><td>36m</td><td>25112 ft</td><td style="color:#40ff40">GREAT LANDING!</td><td><a href="reports/2026-04-28_SCEL_SAME_E190.html">Report</a></td></tr>
-<tr><td>2026-04-27 21:59 UTC</td><td><b>SAZY &rarr; SAZY</b></td><td>C172 N172SP</td><td>7m</td><td>4035 ft</td><td style="color:#40ff40">GREAT LANDING!</td><td><a href="reports/2026-04-27_SAZY_SAZY_C172.html">Report</a></td></tr>
-<tr><td>2026-04-26 18:35 UTC</td><td><b>LEMD &rarr; LEZL</b></td><td>A20N C-GTLT</td><td>54m</td><td>32843 ft</td><td style="color:#ffff00">BUTTER!</td><td><a href="reports/2026-04-26_LEMD_LEZL_A20N.html">Report</a></td></tr>
-<tr><td>2026-04-26 14:15 UTC</td><td><b>SAZY &rarr; SCIE</b></td><td>E175 E175</td><td>46m</td><td>28238 ft</td><td style="color:#ffff00">BUTTER!</td><td><a href="reports/2026-04-26_SAZY_SCIE_E175.html">Report</a></td></tr>
-</tbody></table></body></html>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Flight Log</title>
+    <style>
+    body{background:#1a1a2e;color:#e0e0e0;font-family:sans-serif;margin:0;padding:16px}
+    h1{color:#00d4ff}h2{color:#aaa;font-size:1em;font-weight:normal;margin-top:0}
+    .stats{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:20px}
+    .stat{background:#16213e;border-radius:8px;padding:10px 16px;min-width:120px}
+    .stat .val{font-size:1.6em;color:#00d4ff}.stat .lbl{font-size:.8em;color:#888}
+    #map{height:420px;border-radius:8px;margin-bottom:20px}
+    canvas{background:#16213e;border-radius:8px;margin-bottom:20px;width:100%!important}
+    .lcard{background:#16213e;border-radius:8px;padding:14px 18px;margin-bottom:12px;display:inline-block;min-width:300px}
+    .lcard .rat{font-size:1.4em;font-weight:bold;margin-bottom:8px}
+    .lcard table{border-collapse:collapse}.lcard td{padding:2px 10px 2px 0}
+    a{color:#00d4ff}table{width:100%;border-collapse:collapse}
+    thead tr{color:#888;border-bottom:1px solid #333}
+    .badge-heli{background:#3a5;color:#fff;padding:2px 8px;border-radius:4px;font-size:.8em;margin-left:6px;vertical-align:middle}
+    </style>
+  </head>
+  <body>
+    <h1>Flight Log</h1>
+    <p style="color:#888">30 flights</p>
+    <table>
+      <thead>
+        <tr>
+          <th align="left">Date</th>
+          <th align="left">Route</th>
+          <th align="left">Aircraft</th>
+          <th align="left">Duration</th>
+          <th align="left">Max Alt</th>
+          <th align="left">Landing</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2026-06-14 16:25 UTC</td>
+          <td><b>SAZN &rarr; SCIE</b></td>
+          <td>A20N C-GTLT</td>
+          <td>1h 02m</td>
+          <td>35737 ft</td>
+          <td style="color:#40ff40">GREAT LANDING!</td>
+          <td><a href="reports/2026-06-14_SAZN_SCIE_A20N.html">Report</a></td>
+        </tr>
+        <tr>
+          <td>2026-06-13 19:18 UTC</td>
+          <td><b>SAZN &rarr; SCIE</b></td>
+          <td>A20N C-GTLT</td>
+          <td>1h 11m</td>
+          <td>34896 ft</td>
+          <td style="color:#40ff40">GREAT LANDING!</td>
+          <td><a href="reports/2026-06-13_SAZN_SCIE_A20N.html">Report</a></td>
+        </tr>
+        <tr>
+          <td>2026-06-07 12:53 UTC</td>
+          <td><b>SCNT &rarr; SCNT</b></td>
+          <td>E175 E175</td>
+          <td>1m</td>
+          <td>278 ft</td>
+          <td style="color:#ffff00">BUTTER!</td>
+          <td><a href="reports/2026-06-07_SCNT_SCNT_E175.html">Report</a></td>
+        </tr>
+        <tr>
+          <td>2026-06-07 13:16 UTC</td>
+          <td><b>SCNT &rarr; SAWH</b></td>
+          <td>E175 E175</td>
+          <td>53m</td>
+          <td>29673 ft</td>
+          <td style="color:#ffff00">BUTTER!</td>
+          <td><a href="reports/2026-06-07_SCNT_SAWH_E175.html">Report</a></td>
+        </tr>
+        <tr>
+          <td>2026-06-07 14:11 UTC</td>
+          <td><b>SAWH &rarr; SAWH</b></td>
+          <td>E175 E175</td>
+          <td>1m</td>
+          <td>438 ft</td>
+          <td style="color:#ffff00">BUTTER!</td>
+          <td><a href="reports/2026-06-07_SAWH_SAWH_E175.html">Report</a></td>
+        </tr>
+        <tr>
+          <td>2026-06-02 20:57 UTC</td>
+          <td><b>LEBB &rarr; LEMD</b></td>
+          <td>A20N C-GTLT</td>
+          <td>1h 15m</td>
+          <td>30967 ft</td>
+          <td style="color:#ffff00">BUTTER!</td>
+          <td><a href="reports/2026-06-02_LEBB_LEMD_A20N.html">Report</a></td>
+        </tr>
+        <tr>
+          <td>2026-06-01 20:44 UTC</td>
+          <td><b>SCIE &rarr; SCTE</b></td>
+          <td>A20N C-GTLT</td>
+          <td>55m</td>
+          <td>33064 ft</td>
+          <td style="color:#ffff00">BUTTER!</td>
+          <td><a href="reports/2026-06-01_SCIE_SCTE_A20N.html">Report</a></td>
+        </tr>
+        <tr>
+          <td>2026-05-25 13:38 UTC</td>
+          <td><b>SAZY &rarr; SAZN</b></td>
+          <td>PA38 EC-38T</td>
+          <td>12m</td>
+          <td>4710 ft</td>
+          <td style="color:#ffff00">BUTTER!</td>
+          <td><a href="reports/2026-05-25_SAZY_SAZN_PA38.html">Report</a></td>
+        </tr>
+        <tr>
+          <td>2026-05-25 14:08 UTC</td>
+          <td><b>SAZN &rarr; SAZY</b></td>
+          <td>E19L LIN200</td>
+          <td>39m</td>
+          <td>26468 ft</td>
+          <td style="color:#ffff00">BUTTER!</td>
+          <td><a href="reports/2026-05-25_SAZN_SAZY_E19L.html">Report</a></td>
+        </tr>
+        <tr>
+          <td>2026-05-23 16:11 UTC</td>
+          <td><b>SCIE &rarr; SCEL</b></td>
+          <td>A20N C-GTLT</td>
+          <td>1h 00m</td>
+          <td>32851 ft</td>
+          <td style="color:#40ff40">GREAT LANDING!</td>
+          <td><a href="reports/2026-05-23_SCIE_SCEL_A20N.html">Report</a></td>
+        </tr>
+        <tr>
+          <td>2026-05-22 22:05 UTC</td>
+          <td><b>SAZY &rarr; SCIE</b></td>
+          <td>E170 E170</td>
+          <td>57m</td>
+          <td>33382 ft</td>
+          <td style="color:#ffff00">BUTTER!</td>
+          <td><a href="reports/2026-05-22_SAZY_SCIE_E170.html">Report</a></td>
+        </tr>
+        <tr>
+          <td>2026-05-17 20:23 UTC</td>
+          <td><b>LDSB &rarr; LDSB</b></td>
+          <td>UNKN OD136P</td>
+          <td>43m</td>
+          <td>3325 ft</td>
+          <td style="color:#ffff00">BUTTER!</td>
+          <td><a href="reports/2026-05-17_LDSB_LDSB_UNKN.html">Report</a></td>
+        </tr>
+        <tr>
+          <td>2026-05-14 20:20 UTC</td>
+          <td><b>SCFR &rarr; SCPQ</b></td>
+          <td>DR40 F-SLCD</td>
+          <td>1h 25m</td>
+          <td>12126 ft</td>
+          <td style="color:#ffff00">BUTTER!</td>
+          <td><a href="reports/2026-05-14_SCFR_SCPQ_DR40.html">Report</a></td>
+        </tr>
+        <tr>
+          <td>2026-05-13 19:53 UTC</td>
+          <td><b>SCTC &rarr; SAZY</b></td>
+          <td>DR40 F-SLCD</td>
+          <td>1h 26m</td>
+          <td>12488 ft</td>
+          <td style="color:#ffff00">BUTTER!</td>
+          <td><a href="reports/2026-05-13_SCTC_SAZY_DR40.html">Report</a></td>
+        </tr>
+        <tr>
+          <td>2026-05-12 22:13 UTC</td>
+          <td><b>SCCH &rarr; SCTC</b></td>
+          <td>DR40 F-SLCD</td>
+          <td>1h 43m</td>
+          <td>10092 ft</td>
+          <td style="color:#ffff00">BUTTER!</td>
+          <td><a href="reports/2026-05-12_SCCH_SCTC_DR40.html">Report</a></td>
+        </tr>
+        <tr>
+          <td>2026-05-11 21:20 UTC</td>
+          <td><b>SCCT &rarr; SCCH</b></td>
+          <td>DR40 F-SLCD</td>
+          <td>1h 18m</td>
+          <td>10222 ft</td>
+          <td style="color:#ffff00">BUTTER!</td>
+          <td><a href="reports/2026-05-11_SCCT_SCCH_DR40.html">Report</a></td>
+        </tr>
+        <tr>
+          <td>2026-05-10 21:54 UTC</td>
+          <td><b>SCLC &rarr; SCCT</b></td>
+          <td>DR40 F-SLCD</td>
+          <td>1h 30m</td>
+          <td>10263 ft</td>
+          <td style="color:#40ff40">GREAT LANDING!</td>
+          <td><a href="reports/2026-05-10_SCLC_SCCT_DR40.html">Report</a></td>
+        </tr>
+        <tr>
+          <td>2026-05-08 15:26 UTC</td>
+          <td><b>LOWI &rarr; EDDK</b></td>
+          <td>A20N C-GTLT</td>
+          <td>1h 20m</td>
+          <td>38342 ft</td>
+          <td style="color:#40ff40">GREAT LANDING!</td>
+          <td><a href="reports/2026-05-08_LOWI_EDDK_A20N.html">Report</a></td>
+        </tr>
+        <tr>
+          <td>2026-05-05 20:44 UTC</td>
+          <td><b>SAZY &rarr; SCQP</b></td>
+          <td>SF50 N251CV</td>
+          <td>1h 09m</td>
+          <td>27720 ft</td>
+          <td style="color:#ffff00">BUTTER!</td>
+          <td><a href="reports/2026-05-05_SAZY_SCQP_SF50.html">Report</a></td>
+        </tr>
+        <tr>
+          <td>2026-05-03 19:45 UTC</td>
+          <td><b>SAZS &rarr; SCTE</b></td>
+          <td>A20N C-GTLT</td>
+          <td>31m</td>
+          <td>19927 ft</td>
+          <td style="color:#40ff40">GREAT LANDING!</td>
+          <td><a href="reports/2026-05-03_SAZS_SCTE_A20N.html">Report</a></td>
+        </tr>
+        <tr>
+          <td>2026-05-02 14:42 UTC</td>
+          <td><b>SBSJ &rarr; SBSP</b></td>
+          <td>E190 E190</td>
+          <td>24m</td>
+          <td>12737 ft</td>
+          <td style="color:#ffff00">BUTTER!</td>
+          <td><a href="reports/2026-05-02_SBSJ_SBSP_E190.html">Report</a></td>
+        </tr>
+        <tr>
+          <td>2026-05-01 20:41 UTC</td>
+          <td><b>SBSP &rarr; SBSP</b></td>
+          <td>E190 E190</td>
+          <td>19m</td>
+          <td>5069 ft</td>
+          <td style="color:#40ff40">GREAT LANDING!</td>
+          <td>
+            <a href="reports/2026-05-01_SBSP_SBSP_E190_1777668117.html"
+            >Report</a>
+          </td>
+        </tr>
+        <tr>
+          <td>2026-05-01 15:49 UTC</td>
+          <td><b>SBSP &rarr; SBSP</b></td>
+          <td>E190 E190</td>
+          <td>21m</td>
+          <td>4979 ft</td>
+          <td style="color:#40ff40">GREAT LANDING!</td>
+          <td><a href="reports/2026-05-01_SBSP_SBSP_E190.html">Report</a></td>
+        </tr>
+        <tr>
+          <td>2026-05-01 13:55 UTC</td>
+          <td><b>SBSJ &rarr; SBSP</b></td>
+          <td>E19L LIN200</td>
+          <td>22m</td>
+          <td>12668 ft</td>
+          <td style="color:#00cc00">ACCEPTABLE</td>
+          <td><a href="reports/2026-05-01_SBSJ_SBSP_E19L.html">Report</a></td>
+        </tr>
+        <tr>
+          <td>2026-04-29 20:31 UTC</td>
+          <td><b>SAZY &rarr; SAME</b></td>
+          <td>E19L LIN200</td>
+          <td>1h 11m</td>
+          <td>37748 ft</td>
+          <td style="color:#40ff40">GREAT LANDING!</td>
+          <td><a href="reports/2026-04-29_SAZY_SAME_E19L.html">Report</a></td>
+        </tr>
+        <tr>
+          <td>2026-04-28 22:26 UTC</td>
+          <td><b>SCEL &rarr; SAME</b></td>
+          <td>E190 E190</td>
+          <td>36m</td>
+          <td>25197 ft</td>
+          <td style="color:#ffff00">BUTTER!</td>
+          <td>
+            <a href="reports/2026-04-28_SCEL_SAME_E190_1777415200.html"
+            >Report</a>
+          </td>
+        </tr>
+        <tr>
+          <td>2026-04-28 20:42 UTC</td>
+          <td><b>SCEL &rarr; SAME</b></td>
+          <td>E190 E190</td>
+          <td>36m</td>
+          <td>25112 ft</td>
+          <td style="color:#40ff40">GREAT LANDING!</td>
+          <td><a href="reports/2026-04-28_SCEL_SAME_E190.html">Report</a></td>
+        </tr>
+        <tr>
+          <td>2026-04-27 21:59 UTC</td>
+          <td><b>SAZY &rarr; SAZY</b></td>
+          <td>C172 N172SP</td>
+          <td>7m</td>
+          <td>4035 ft</td>
+          <td style="color:#40ff40">GREAT LANDING!</td>
+          <td><a href="reports/2026-04-27_SAZY_SAZY_C172.html">Report</a></td>
+        </tr>
+        <tr>
+          <td>2026-04-26 18:35 UTC</td>
+          <td><b>LEMD &rarr; LEZL</b></td>
+          <td>A20N C-GTLT</td>
+          <td>54m</td>
+          <td>32843 ft</td>
+          <td style="color:#ffff00">BUTTER!</td>
+          <td><a href="reports/2026-04-26_LEMD_LEZL_A20N.html">Report</a></td>
+        </tr>
+        <tr>
+          <td>2026-04-26 14:15 UTC</td>
+          <td><b>SAZY &rarr; SCIE</b></td>
+          <td>E175 E175</td>
+          <td>46m</td>
+          <td>28238 ft</td>
+          <td style="color:#ffff00">BUTTER!</td>
+          <td><a href="reports/2026-04-26_SAZY_SCIE_E175.html">Report</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>

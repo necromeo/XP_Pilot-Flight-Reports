@@ -1,0 +1,99 @@
+{
+  "aircraft_category": "fixed_wing",
+  "aircraft_icao": "E175",
+  "aircraft_tail": "E175",
+  "arrival_icao": "SAWH",
+  "block_time_min": 1,
+  "date": "2026-06-07",
+  "departure_icao": "SAWH",
+  "end_time": 1780841612,
+  "end_utc": "14:13",
+  "fuel_used_kg": 0,
+  "landings": [
+    {
+      "agl_ft": 1.4154741764068604,
+      "bounce_count": 0,
+      "crosswind_kts": 3,
+      "crosswind_side": "R",
+      "flare": "Very good flare",
+      "float_time": 7.33251953125,
+      "fpm": -39.1198844909668,
+      "g_force": 0.9670542478561401,
+      "headwind_kts": -2,
+      "is_rotorcraft": false,
+      "pitch_deg": 0.5275042653083801,
+      "pitch_rate": 0.009206687100231647,
+      "rating": "BUTTER!",
+      "time": 1780841545,
+      "wind_dir_mag": 20,
+      "wind_speed_kts": 4,
+      "wind_status": "LIGHT"
+    },
+    {
+      "agl_ft": 1.4261811971664429,
+      "bounce_count": 0,
+      "crosswind_kts": 3,
+      "crosswind_side": "R",
+      "flare": "Very good flare",
+      "float_time": 7.3359375,
+      "fpm": -28.451772689819336,
+      "g_force": 0.9658663272857666,
+      "headwind_kts": -2,
+      "is_rotorcraft": false,
+      "pitch_deg": 0.5242325067520142,
+      "pitch_rate": 0.009149583987891674,
+      "rating": "BUTTER!",
+      "time": 1780841575,
+      "wind_dir_mag": 20,
+      "wind_speed_kts": 4,
+      "wind_status": "LIGHT"
+    }
+  ],
+  "max_altitude_ft": 438,
+  "max_speed_kts": 254,
+  "start_time": 1780841516,
+  "start_utc": "14:11",
+  "track": [
+    {
+      "alt": 147,
+      "lat": -54.84251335753815,
+      "lon": -68.27444464050284,
+      "spd": 251,
+      "t": 1780841526,
+      "vs": -929
+    },
+    {
+      "alt": 105,
+      "lat": -54.842662456408746,
+      "lon": -68.27780428619728,
+      "spd": 248,
+      "t": 1780841536,
+      "vs": -759
+    },
+    {
+      "alt": 438,
+      "lat": -54.84161168387077,
+      "lon": -68.25318721635732,
+      "spd": 242,
+      "t": 1780841548,
+      "vs": -515
+    },
+    {
+      "alt": 218,
+      "lat": -54.84230409972333,
+      "lon": -68.26971658907841,
+      "spd": 254,
+      "t": 1780841558,
+      "vs": -840
+    },
+    {
+      "alt": 86,
+      "lat": -54.842752947949606,
+      "lon": -68.28003417964143,
+      "spd": 245,
+      "t": 1780841568,
+      "vs": -496
+    }
+  ],
+  "version": 1
+}

@@ -1,0 +1,83 @@
+{
+  "aircraft_category": "fixed_wing",
+  "aircraft_icao": "E175",
+  "aircraft_tail": "E175",
+  "arrival_icao": "SCNT",
+  "block_time_min": 1,
+  "date": "2026-06-07",
+  "departure_icao": "SCNT",
+  "end_time": 1780836889,
+  "end_utc": "12:54",
+  "fuel_used_kg": 0,
+  "landings": [
+    {
+      "agl_ft": 1.3575341701507568,
+      "bounce_count": 0,
+      "crosswind_kts": -6,
+      "crosswind_side": "L",
+      "flare": "Very good flare",
+      "float_time": 6.611236572265625,
+      "fpm": -144.50335693359375,
+      "g_force": 1.0168906450271606,
+      "headwind_kts": 3,
+      "is_rotorcraft": false,
+      "pitch_deg": -0.6695325374603271,
+      "pitch_rate": -0.011685547418892384,
+      "rating": "BUTTER!",
+      "time": 1780836845,
+      "wind_dir_mag": 43,
+      "wind_speed_kts": 7,
+      "wind_status": "STEADY"
+    },
+    {
+      "agl_ft": 1.3573589324951172,
+      "bounce_count": 0,
+      "crosswind_kts": -6,
+      "crosswind_side": "L",
+      "flare": "Very good flare",
+      "float_time": 6.620849609375,
+      "fpm": -32.178863525390625,
+      "g_force": 1.0103325843811035,
+      "headwind_kts": 3,
+      "is_rotorcraft": false,
+      "pitch_deg": -0.6622908711433411,
+      "pitch_rate": -0.011559156700968742,
+      "rating": "BUTTER!",
+      "time": 1780836864,
+      "wind_dir_mag": 43,
+      "wind_speed_kts": 7,
+      "wind_status": "STEADY"
+    }
+  ],
+  "max_altitude_ft": 278,
+  "max_speed_kts": 252,
+  "start_time": 1780836797,
+  "start_utc": "12:53",
+  "track": [
+    {
+      "alt": 225,
+      "lat": -51.66797128927966,
+      "lon": -72.53638472401936,
+      "spd": 248,
+      "t": 1780836842,
+      "vs": -110
+    },
+    {
+      "alt": 278,
+      "lat": -51.66577736187014,
+      "lon": -72.54260947229939,
+      "spd": 252,
+      "t": 1780836852,
+      "vs": -585
+    },
+    {
+      "alt": 225,
+      "lat": -51.66813696192277,
+      "lon": -72.5359103985119,
+      "spd": 247,
+      "t": 1780836862,
+      "vs": -48
+    }
+  ],
+  "version": 1
+}
