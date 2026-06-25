@@ -1,16 +1,770 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><title>SBSJ to SBSP</title><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-<style>
-body{background:#1a1a2e;color:#e0e0e0;font-family:sans-serif;margin:0;padding:16px}
-h1{color:#00d4ff}h2{color:#aaa;font-size:1em;font-weight:normal;margin-top:0}
-.stats{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:20px}
-.stat{background:#16213e;border-radius:8px;padding:10px 16px;min-width:120px}
-.stat .val{font-size:1.6em;color:#00d4ff}.stat .lbl{font-size:.8em;color:#888}
-#map{height:420px;border-radius:8px;margin-bottom:20px}
-canvas{background:#16213e;border-radius:8px;margin-bottom:20px;width:100%!important}
-.lcard{background:#16213e;border-radius:8px;padding:14px 18px;margin-bottom:12px;display:inline-block;min-width:300px}
-.lcard .rat{font-size:1.4em;font-weight:bold;margin-bottom:8px}
-.lcard table{border-collapse:collapse}.lcard td{padding:2px 10px 2px 0}
-a{color:#00d4ff}table{width:100%;border-collapse:collapse}
-thead tr{color:#888;border-bottom:1px solid #333}
-</style></head><body><h1>SBSJ &rarr; SBSP</h1><h2>2026-05-02 14:42&ndash;15:07 UTC &bull; E190 E190</h2><div class="stats"><div class="stat"><div class="val">24m</div><div class="lbl">Block Time</div></div><div class="stat"><div class="val">12737 ft</div><div class="lbl">Max Altitude</div></div><div class="stat"><div class="val">566 kts</div><div class="lbl">Max Speed</div></div><div class="stat"><div class="val">131</div><div class="lbl">Track Points</div></div></div><div id="map"></div><canvas id="ac" style="height:180px"></canvas><canvas id="sc" style="height:140px"></canvas><h3>Landing</h3><div class="lcard"><div class="rat" style="color:#ffff00">BUTTER!</div><table><tr><td>Vertical Speed</td><td><b style="color:#ffff00">-122 fpm</b></td></tr><tr><td>G-Force</td><td><b>0.98 G</b></td></tr><tr><td>Float time</td><td><b>8.8 s</b></td></tr><tr><td>AGL at 50ft gate</td><td><b>2 ft</b></td></tr><tr><td>Pitch at TD</td><td><b>0.58 deg/s</b> &mdash; good timing</td></tr><tr><td>Pitch rate</td><td><b>0.01</b></td></tr><tr><td>Flare</td><td><b>Very good flare</b></td></tr><tr><td>Bounces</td><td><b style="color:#e07a3c">1</b></td></tr><tr><td>Wind</td><td><b>11 kts from 338&deg; mag</b></td></tr><tr><td>Headwind</td><td>11 kts headwind</td></tr><tr><td>Crosswind</td><td><b>2 kts L</b></td></tr><tr><td style="color:#666;font-size:.85em" colspan="2">Profile: Butter &gt;-250 / Great &gt;-400 / Acceptable &gt;-600 / Hard &gt;-850</td></tr></table></div>
-<p style="color:#444;font-size:.8em"><a href="../index.html">&larr; All flights</a></p><script>var lats=[-23.222530,-23.216893,-23.211009,-23.202931,-23.192834,-23.183036,-23.175980,-23.172608,-23.173984,-23.180179,-23.189789,-23.201953,-23.215040,-23.228218,-23.241386,-23.254635,-23.267573,-23.278586,-23.287781,-23.299069,-23.310928,-23.322158,-23.332986,-23.343592,-23.354011,-23.364316,-23.374587,-23.384803,-23.395008,-23.405173,-23.415506,-23.426379,-23.437143,-23.447493,-23.457676,-23.467840,-23.478030,-23.488263,-23.498501,-23.508756,-23.518971,-23.529187,-23.539402,-23.549599,-23.559774,-23.569959,-23.580115,-23.590274,-23.600438,-23.610588,-23.620764,-23.630899,-23.641008,-23.651166,-23.661327,-23.672155,-23.684385,-23.697225,-23.710118,-23.722787,-23.735305,-23.747888,-23.760719,-23.774140,-23.788348,-23.803187,-23.818165,-23.833064,-23.847936,-23.862867,-23.877340,-23.891636,-23.905926,-23.920308,-23.934213,-23.945406,-23.952282,-23.954774,-23.952942,-23.946216,-23.937249,-23.928431,-23.919814,-23.911567,-23.903840,-23.896545,-23.889698,-23.883166,-23.876764,-23.870364,-23.863954,-23.857540,-23.851115,-23.844712,-23.838297,-23.831925,-23.825592,-23.819275,-23.812964,-23.806657,-23.800446,-23.794071,-23.786155,-23.778052,-23.769760,-23.761375,-23.753232,-23.745572,-23.738587,-23.732219,-23.726276,-23.720505,-23.714737,-23.708906,-23.703051,-23.697521,-23.692522,-23.687963,-23.683534,-23.679109,-23.674667,-23.670183,-23.665677,-23.661146,-23.656681,-23.652192,-23.647716,-23.643174,-23.638657,-23.634132,-23.629662],lons=[-45.869023,-45.875608,-45.882072,-45.886506,-45.886546,-45.881390,-45.871339,-45.858236,-45.843875,-45.830688,-45.820495,-45.814654,-45.811798,-45.809203,-45.806616,-45.804469,-45.806688,-45.813924,-45.823636,-45.830393,-45.836143,-45.842993,-45.850466,-45.858357,-45.866460,-45.874691,-45.883031,-45.891407,-45.899829,-45.908246,-45.916836,-45.925881,-45.934828,-45.943439,-45.951923,-45.960397,-45.968893,-45.977425,-45.985967,-45.994519,-46.003041,-46.011569,-46.020096,-46.028610,-46.037105,-46.045613,-46.054099,-46.062588,-46.071081,-46.079569,-46.088078,-46.096550,-46.105007,-46.113507,-46.122010,-46.129481,-46.134962,-46.140486,-46.146022,-46.151451,-46.156814,-46.162214,-46.167720,-46.173488,-46.179591,-46.185959,-46.192380,-46.198769,-46.205153,-46.211561,-46.217776,-46.223919,-46.230065,-46.236248,-46.243381,-46.254530,-46.268962,-46.284997,-46.301486,-46.316588,-46.330240,-46.343412,-46.356178,-46.368348,-46.379717,-46.390449,-46.400507,-46.410104,-46.419510,-46.428914,-46.438331,-46.447742,-46.457151,-46.466529,-46.475917,-46.485239,-46.494498,-46.503739,-46.512969,-46.522187,-46.531260,-46.539652,-46.546070,-46.551886,-46.557752,-46.563596,-46.569232,-46.574490,-46.579316,-46.583721,-46.587811,-46.591822,-46.595814,-46.599842,-46.603875,-46.607659,-46.611109,-46.614270,-46.617330,-46.620388,-46.623451,-46.626539,-46.629644,-46.632714,-46.635817,-46.638854,-46.641957,-46.645045,-46.648197,-46.651324,-46.654433],alts=[2556,3178,3840,4192,4541,5032,5571,5942,6449,7044,7239,7290,7310,7296,7286,7276,7290,7308,7311,7306,7303,7291,7288,7288,7288,7287,7288,7290,7286,7284,7373,7852,8237,8287,8317,8334,8343,8337,8334,8330,8330,8333,8336,8336,8332,8336,8338,8337,8334,8333,8340,8335,8329,8330,8333,8328,8469,9000,9770,10613,11415,12061,12548,12687,12732,12737,12735,12735,12718,12710,12710,12710,12697,12672,12616,12522,12541,12279,11573,10976,10642,10363,10091,9801,9607,9411,9225,9054,8892,8727,8559,8388,8258,8116,7952,7776,7601,7481,7290,7091,6955,6794,6607,6349,5934,5716,5501,5283,5148,4962,4794,4655,4524,4391,4253,4119,3981,3859,3773,3685,3596,3495,3417,3311,3209,3101,3010,2895,2770,2657,2635],spds=[325,346,350,378,411,430,447,474,491,492,483,483,485,486,486,485,484,485,486,486,486,486,486,485,486,485,486,485,485,485,505,522,502,486,483,483,483,484,485,485,484,485,485,485,485,486,486,485,485,485,486,485,486,486,486,485,509,521,514,503,490,488,497,516,550,563,566,565,565,553,546,542,542,543,545,541,539,550,562,564,553,540,523,493,465,438,416,403,400,403,405,407,406,408,408,409,408,411,413,414,404,392,385,386,398,393,380,355,322,301,288,285,286,289,284,264,238,223,223,224,225,225,226,228,226,227,227,228,227,227,214];var map=L.map('map');L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{maxZoom:19,attribution:'&copy; OpenStreetMap contributors &copy; CARTO',subdomains:'abcd'}).addTo(map);if(lats.length>0){var coords=lats.map(function(la,i){return[la,lons[i]];});var poly=L.polyline(coords,{color:'#00d4ff',weight:2}).addTo(map);L.circleMarker(coords[0],{radius:6,color:'#00ff80',fillOpacity:1}).bindTooltip('Departure').addTo(map);L.circleMarker(coords[coords.length-1],{radius:6,color:'#ff4040',fillOpacity:1}).bindTooltip('Arrival').addTo(map);map.fitBounds(poly.getBounds(),{padding:[20,20]});}else{map.setView([-23.803187,-46.185959],8);}var fmt='ms';var lb=alts.map(function(_,i){var s=i*10;if(fmt==='ms'){var m=Math.floor(s/60),ss=s%60;return m+':'+(ss<10?'0':'')+ss;}var h=Math.floor(s/3600),mm=Math.floor((s%3600)/60);return h+':'+(mm<10?'0':'')+mm;});new Chart(document.getElementById('ac'),{type:'line',data:{labels:lb,datasets:[{label:'Altitude (ft)',data:alts,borderColor:'#00d4ff',backgroundColor:'rgba(0,212,255,.08)',tension:.3,pointRadius:0,fill:true}]},options:{maintainAspectRatio:false,plugins:{legend:{labels:{color:'#e0e0e0',font:{size:13}}}},scales:{x:{ticks:{color:'#aaa',font:{size:12},maxTicksLimit:8},grid:{color:'#333'}},y:{beginAtZero:true,ticks:{color:'#aaa',font:{size:12},callback:function(v){return v+' ft'}},grid:{color:'#333'}}}}});new Chart(document.getElementById('sc'),{type:'line',data:{labels:lb,datasets:[{label:'IAS (kts)',data:spds,borderColor:'#ff9900',backgroundColor:'rgba(255,153,0,.08)',tension:.3,pointRadius:0,fill:true}]},options:{maintainAspectRatio:false,plugins:{legend:{labels:{color:'#e0e0e0',font:{size:13}}}},scales:{x:{ticks:{color:'#aaa',font:{size:12},maxTicksLimit:8},grid:{color:'#333'}},y:{beginAtZero:true,ticks:{color:'#aaa',font:{size:12},callback:function(v){return v+' kts'}},grid:{color:'#333'}}}}});</script></body></html>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>SBSJ to SBSP</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+    body{background:#1a1a2e;color:#e0e0e0;font-family:sans-serif;margin:0;padding:16px}
+    h1{color:#00d4ff}h2{color:#aaa;font-size:1em;font-weight:normal;margin-top:0}
+    .stats{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:20px}
+    .stat{background:#16213e;border-radius:8px;padding:10px 16px;min-width:120px}
+    .stat .val{font-size:1.6em;color:#00d4ff}.stat .lbl{font-size:.8em;color:#888}
+    #map{height:420px;border-radius:8px;margin-bottom:20px}
+    canvas{background:#16213e;border-radius:8px;margin-bottom:20px;width:100%!important}
+    .lcard{background:#16213e;border-radius:8px;padding:14px 18px;margin-bottom:12px;display:inline-block;min-width:300px}
+    .lcard .rat{font-size:1.4em;font-weight:bold;margin-bottom:8px}
+    .lcard table{border-collapse:collapse}.lcard td{padding:2px 10px 2px 0}
+    a{color:#00d4ff}table{width:100%;border-collapse:collapse}
+    thead tr{color:#888;border-bottom:1px solid #333}
+    </style>
+  </head>
+  <body>
+    <h1>SBSJ &rarr; SBSP</h1>
+    <h2>2026-05-02 14:42&ndash;15:07 UTC &bull; E190 E190</h2>
+    <div class="stats">
+      <div class="stat">
+        <div class="val">24m</div>
+        <div class="lbl">Block Time</div>
+      </div>
+      <div class="stat">
+        <div class="val">12737 ft</div>
+        <div class="lbl">Max Altitude</div>
+      </div>
+      <div class="stat">
+        <div class="val">566 kts</div>
+        <div class="lbl">Max Speed</div>
+      </div>
+      <div class="stat">
+        <div class="val">131</div>
+        <div class="lbl">Track Points</div>
+      </div>
+    </div>
+    <div id="map"></div><canvas id="ac" style="height:180px"></canvas><canvas
+      id="sc"
+      style="height:140px"
+    ></canvas><h3>Landing</h3>
+    <div class="lcard">
+      <div class="rat" style="color:#ffff00">BUTTER!</div>
+      <table>
+        <tr>
+          <td>Vertical Speed</td>
+          <td><b style="color:#ffff00">-122 fpm</b></td>
+        </tr>
+        <tr>
+          <td>G-Force</td>
+          <td><b>0.98 G</b></td>
+        </tr>
+        <tr>
+          <td>Float time</td>
+          <td><b>8.8 s</b></td>
+        </tr>
+        <tr>
+          <td>AGL at 50ft gate</td>
+          <td><b>2 ft</b></td>
+        </tr>
+        <tr>
+          <td>Pitch at TD</td>
+          <td><b>0.58 deg/s</b> &mdash; good timing</td>
+        </tr>
+        <tr>
+          <td>Pitch rate</td>
+          <td><b>0.01</b></td>
+        </tr>
+        <tr>
+          <td>Flare</td>
+          <td><b>Very good flare</b></td>
+        </tr>
+        <tr>
+          <td>Bounces</td>
+          <td><b style="color:#e07a3c">1</b></td>
+        </tr>
+        <tr>
+          <td>Wind</td>
+          <td><b>11 kts from 338&deg; mag</b></td>
+        </tr>
+        <tr>
+          <td>Headwind</td>
+          <td>11 kts headwind</td>
+        </tr>
+        <tr>
+          <td>Crosswind</td>
+          <td><b>2 kts L</b></td>
+        </tr>
+        <tr>
+          <td style="color:#666;font-size:.85em" colspan="2">
+            Profile: Butter &gt;-250 / Great &gt;-400 / Acceptable &gt;-600 /
+            Hard &gt;-850
+          </td>
+        </tr>
+      </table>
+    </div>
+    <p style="color:#444;font-size:.8em">
+      <a href="../index.html">&larr; All flights</a>
+    </p>
+    <script>
+    var lats = [
+                -23.222530,
+                -23.216893,
+                -23.211009,
+                -23.202931,
+                -23.192834,
+                -23.183036,
+                -23.175980,
+                -23.172608,
+                -23.173984,
+                -23.180179,
+                -23.189789,
+                -23.201953,
+                -23.215040,
+                -23.228218,
+                -23.241386,
+                -23.254635,
+                -23.267573,
+                -23.278586,
+                -23.287781,
+                -23.299069,
+                -23.310928,
+                -23.322158,
+                -23.332986,
+                -23.343592,
+                -23.354011,
+                -23.364316,
+                -23.374587,
+                -23.384803,
+                -23.395008,
+                -23.405173,
+                -23.415506,
+                -23.426379,
+                -23.437143,
+                -23.447493,
+                -23.457676,
+                -23.467840,
+                -23.478030,
+                -23.488263,
+                -23.498501,
+                -23.508756,
+                -23.518971,
+                -23.529187,
+                -23.539402,
+                -23.549599,
+                -23.559774,
+                -23.569959,
+                -23.580115,
+                -23.590274,
+                -23.600438,
+                -23.610588,
+                -23.620764,
+                -23.630899,
+                -23.641008,
+                -23.651166,
+                -23.661327,
+                -23.672155,
+                -23.684385,
+                -23.697225,
+                -23.710118,
+                -23.722787,
+                -23.735305,
+                -23.747888,
+                -23.760719,
+                -23.774140,
+                -23.788348,
+                -23.803187,
+                -23.818165,
+                -23.833064,
+                -23.847936,
+                -23.862867,
+                -23.877340,
+                -23.891636,
+                -23.905926,
+                -23.920308,
+                -23.934213,
+                -23.945406,
+                -23.952282,
+                -23.954774,
+                -23.952942,
+                -23.946216,
+                -23.937249,
+                -23.928431,
+                -23.919814,
+                -23.911567,
+                -23.903840,
+                -23.896545,
+                -23.889698,
+                -23.883166,
+                -23.876764,
+                -23.870364,
+                -23.863954,
+                -23.857540,
+                -23.851115,
+                -23.844712,
+                -23.838297,
+                -23.831925,
+                -23.825592,
+                -23.819275,
+                -23.812964,
+                -23.806657,
+                -23.800446,
+                -23.794071,
+                -23.786155,
+                -23.778052,
+                -23.769760,
+                -23.761375,
+                -23.753232,
+                -23.745572,
+                -23.738587,
+                -23.732219,
+                -23.726276,
+                -23.720505,
+                -23.714737,
+                -23.708906,
+                -23.703051,
+                -23.697521,
+                -23.692522,
+                -23.687963,
+                -23.683534,
+                -23.679109,
+                -23.674667,
+                -23.670183,
+                -23.665677,
+                -23.661146,
+                -23.656681,
+                -23.652192,
+                -23.647716,
+                -23.643174,
+                -23.638657,
+                -23.634132,
+                -23.629662,
+            ],
+            lons = [
+                -45.869023,
+                -45.875608,
+                -45.882072,
+                -45.886506,
+                -45.886546,
+                -45.881390,
+                -45.871339,
+                -45.858236,
+                -45.843875,
+                -45.830688,
+                -45.820495,
+                -45.814654,
+                -45.811798,
+                -45.809203,
+                -45.806616,
+                -45.804469,
+                -45.806688,
+                -45.813924,
+                -45.823636,
+                -45.830393,
+                -45.836143,
+                -45.842993,
+                -45.850466,
+                -45.858357,
+                -45.866460,
+                -45.874691,
+                -45.883031,
+                -45.891407,
+                -45.899829,
+                -45.908246,
+                -45.916836,
+                -45.925881,
+                -45.934828,
+                -45.943439,
+                -45.951923,
+                -45.960397,
+                -45.968893,
+                -45.977425,
+                -45.985967,
+                -45.994519,
+                -46.003041,
+                -46.011569,
+                -46.020096,
+                -46.028610,
+                -46.037105,
+                -46.045613,
+                -46.054099,
+                -46.062588,
+                -46.071081,
+                -46.079569,
+                -46.088078,
+                -46.096550,
+                -46.105007,
+                -46.113507,
+                -46.122010,
+                -46.129481,
+                -46.134962,
+                -46.140486,
+                -46.146022,
+                -46.151451,
+                -46.156814,
+                -46.162214,
+                -46.167720,
+                -46.173488,
+                -46.179591,
+                -46.185959,
+                -46.192380,
+                -46.198769,
+                -46.205153,
+                -46.211561,
+                -46.217776,
+                -46.223919,
+                -46.230065,
+                -46.236248,
+                -46.243381,
+                -46.254530,
+                -46.268962,
+                -46.284997,
+                -46.301486,
+                -46.316588,
+                -46.330240,
+                -46.343412,
+                -46.356178,
+                -46.368348,
+                -46.379717,
+                -46.390449,
+                -46.400507,
+                -46.410104,
+                -46.419510,
+                -46.428914,
+                -46.438331,
+                -46.447742,
+                -46.457151,
+                -46.466529,
+                -46.475917,
+                -46.485239,
+                -46.494498,
+                -46.503739,
+                -46.512969,
+                -46.522187,
+                -46.531260,
+                -46.539652,
+                -46.546070,
+                -46.551886,
+                -46.557752,
+                -46.563596,
+                -46.569232,
+                -46.574490,
+                -46.579316,
+                -46.583721,
+                -46.587811,
+                -46.591822,
+                -46.595814,
+                -46.599842,
+                -46.603875,
+                -46.607659,
+                -46.611109,
+                -46.614270,
+                -46.617330,
+                -46.620388,
+                -46.623451,
+                -46.626539,
+                -46.629644,
+                -46.632714,
+                -46.635817,
+                -46.638854,
+                -46.641957,
+                -46.645045,
+                -46.648197,
+                -46.651324,
+                -46.654433,
+            ],
+            alts = [
+                2556,
+                3178,
+                3840,
+                4192,
+                4541,
+                5032,
+                5571,
+                5942,
+                6449,
+                7044,
+                7239,
+                7290,
+                7310,
+                7296,
+                7286,
+                7276,
+                7290,
+                7308,
+                7311,
+                7306,
+                7303,
+                7291,
+                7288,
+                7288,
+                7288,
+                7287,
+                7288,
+                7290,
+                7286,
+                7284,
+                7373,
+                7852,
+                8237,
+                8287,
+                8317,
+                8334,
+                8343,
+                8337,
+                8334,
+                8330,
+                8330,
+                8333,
+                8336,
+                8336,
+                8332,
+                8336,
+                8338,
+                8337,
+                8334,
+                8333,
+                8340,
+                8335,
+                8329,
+                8330,
+                8333,
+                8328,
+                8469,
+                9000,
+                9770,
+                10613,
+                11415,
+                12061,
+                12548,
+                12687,
+                12732,
+                12737,
+                12735,
+                12735,
+                12718,
+                12710,
+                12710,
+                12710,
+                12697,
+                12672,
+                12616,
+                12522,
+                12541,
+                12279,
+                11573,
+                10976,
+                10642,
+                10363,
+                10091,
+                9801,
+                9607,
+                9411,
+                9225,
+                9054,
+                8892,
+                8727,
+                8559,
+                8388,
+                8258,
+                8116,
+                7952,
+                7776,
+                7601,
+                7481,
+                7290,
+                7091,
+                6955,
+                6794,
+                6607,
+                6349,
+                5934,
+                5716,
+                5501,
+                5283,
+                5148,
+                4962,
+                4794,
+                4655,
+                4524,
+                4391,
+                4253,
+                4119,
+                3981,
+                3859,
+                3773,
+                3685,
+                3596,
+                3495,
+                3417,
+                3311,
+                3209,
+                3101,
+                3010,
+                2895,
+                2770,
+                2657,
+                2635,
+            ],
+            spds = [
+                325,
+                346,
+                350,
+                378,
+                411,
+                430,
+                447,
+                474,
+                491,
+                492,
+                483,
+                483,
+                485,
+                486,
+                486,
+                485,
+                484,
+                485,
+                486,
+                486,
+                486,
+                486,
+                486,
+                485,
+                486,
+                485,
+                486,
+                485,
+                485,
+                485,
+                505,
+                522,
+                502,
+                486,
+                483,
+                483,
+                483,
+                484,
+                485,
+                485,
+                484,
+                485,
+                485,
+                485,
+                485,
+                486,
+                486,
+                485,
+                485,
+                485,
+                486,
+                485,
+                486,
+                486,
+                486,
+                485,
+                509,
+                521,
+                514,
+                503,
+                490,
+                488,
+                497,
+                516,
+                550,
+                563,
+                566,
+                565,
+                565,
+                553,
+                546,
+                542,
+                542,
+                543,
+                545,
+                541,
+                539,
+                550,
+                562,
+                564,
+                553,
+                540,
+                523,
+                493,
+                465,
+                438,
+                416,
+                403,
+                400,
+                403,
+                405,
+                407,
+                406,
+                408,
+                408,
+                409,
+                408,
+                411,
+                413,
+                414,
+                404,
+                392,
+                385,
+                386,
+                398,
+                393,
+                380,
+                355,
+                322,
+                301,
+                288,
+                285,
+                286,
+                289,
+                284,
+                264,
+                238,
+                223,
+                223,
+                224,
+                225,
+                225,
+                226,
+                228,
+                226,
+                227,
+                227,
+                228,
+                227,
+                227,
+                214,
+            ];
+        var map = L.map("map",);
+        L.tileLayer(
+            "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+            {
+                maxZoom: 19,
+                attribution: "&copy; OpenStreetMap contributors &copy; CARTO",
+                subdomains: "abcd",
+            },
+        ).addTo(map,);
+        if (lats.length > 0) {
+            var coords = lats.map(function(la, i,) {
+                return [la, lons[i],];
+            },);
+            var poly = L.polyline(coords, { color: "#00d4ff", weight: 2, },)
+                .addTo(map,);
+            L.circleMarker(coords[0], {
+                radius: 6,
+                color: "#00ff80",
+                fillOpacity: 1,
+            },).bindTooltip("Departure",).addTo(map,);
+            L.circleMarker(coords[coords.length - 1], {
+                radius: 6,
+                color: "#ff4040",
+                fillOpacity: 1,
+            },).bindTooltip("Arrival",).addTo(map,);
+            map.fitBounds(poly.getBounds(), { padding: [20, 20,], },);
+        } else map.setView([-23.803187, -46.185959,], 8,);
+        var fmt = "ms";
+        var lb = alts.map(function(_, i,) {
+            var s = i * 10;
+            if (fmt === "ms") {
+                var m = Math.floor(s / 60,), ss = s % 60;
+                return m + ":" + (ss < 10 ? "0" : "") + ss;
+            }
+            var h = Math.floor(s / 3600,), mm = Math.floor((s % 3600) / 60,);
+            return h + ":" + (mm < 10 ? "0" : "") + mm;
+        },);
+        new Chart(document.getElementById("ac",), {
+            type: "line",
+            data: {
+                labels: lb,
+                datasets: [{
+                    label: "Altitude (ft)",
+                    data: alts,
+                    borderColor: "#00d4ff",
+                    backgroundColor: "rgba(0,212,255,.08)",
+                    tension: .3,
+                    pointRadius: 0,
+                    fill: true,
+                },],
+            },
+            options: {
+                maintainaspectratio: true,
+                plugins: {
+                    legend: {
+                        labels: { color: "#e0e0e0", font: { size: 13, }, },
+                    },
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            color: "#aaa",
+                            font: { size: 12, },
+                            maxTicksLimit: 8,
+                        },
+                        grid: { color: "#333", },
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: "#aaa",
+                            font: { size: 12, },
+                            callback: function(v,) {
+                                return v + " ft";
+                            },
+                        },
+                        grid: { color: "#333", },
+                    },
+                },
+            },
+        },);
+        new Chart(document.getElementById("sc",), {
+            type: "line",
+            data: {
+                labels: lb,
+                datasets: [{
+                    label: "IAS (kts)",
+                    data: spds,
+                    borderColor: "#ff9900",
+                    backgroundColor: "rgba(255,153,0,.08)",
+                    tension: .3,
+                    pointRadius: 0,
+                    fill: true,
+                },],
+            },
+            options: {
+                maintainaspectratio: true,
+                plugins: {
+                    legend: {
+                        labels: { color: "#e0e0e0", font: { size: 13, }, },
+                    },
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            color: "#aaa",
+                            font: { size: 12, },
+                            maxTicksLimit: 8,
+                        },
+                        grid: { color: "#333", },
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: "#aaa",
+                            font: { size: 12, },
+                            callback: function(v,) {
+                                return v + " kts";
+                            },
+                        },
+                        grid: { color: "#333", },
+                    },
+                },
+            },
+        },);
+    </script>
+  </body>
+</html>
